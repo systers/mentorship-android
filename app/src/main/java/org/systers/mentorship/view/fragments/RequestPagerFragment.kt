@@ -1,21 +1,26 @@
 package org.systers.mentorship.view.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.View
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.android.synthetic.main.fragment_request_pager.*
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.utils.Constants
 import org.systers.mentorship.view.activities.RequestDetailActivity
 import org.systers.mentorship.view.adapters.RequestsAdapter
+import javax.inject.Inject
 
 /**
  * This fragment is instantiated per each tab from the RequestsFragment ViewPager
  */
 class RequestPagerFragment: BaseFragment() {
-
+    @ApplicationContext
+    @Inject
+    lateinit var appContext: Context
     companion object {
         /**
          * Creates an instance of [RequestPagerFragment]
@@ -79,7 +84,7 @@ class RequestPagerFragment: BaseFragment() {
         } else {
             rvRequestsList.apply {
                 layoutManager = LinearLayoutManager(context)
-                adapter = RequestsAdapter(filtered, openRequestDetail)
+                adapter = RequestsAdapter(appContext, filtered, openRequestDetail)
             }
             tvEmptyList.visibility = View.GONE
         }

@@ -7,6 +7,8 @@ object Versions {
     const val targetSdkVersion = 28
     const val versionCode = 1
     const val versionName = "1"
+    const val gradleBuildTool = "4.1.2"
+    const val kotlinVersion = "1.3.21"
     const val gradleBuildTool = "4.0.1"
     const val dataBinding = "3.2.0-alpha11"
     const val kotlinVersion = "1.4.10"
@@ -31,6 +33,8 @@ object Versions {
     const val appIntro = "5.1.0"
     const val appCompat = "1.0.2"
     const val circleImageView = "3.0.1"
+    const val hiltVersion = "2.33-beta"
+    const val fragmentktxVersion = "1.3.0"
 }
 
 /**
@@ -38,8 +42,7 @@ object Versions {
  */
 object Dependencies {
     const val gradle_build_tool = "com.android.tools.build:gradle:${Versions.gradleBuildTool}"
-    const val databinding = "androidx.databinding:compiler:${Versions.dataBinding}"
-    const val appCompat= "androidx.appcompat:appcompat:${Versions.appCompat}"
+    const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     const val kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     const val kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlinVersion}"
     const val design = "com.google.android.material:material:${Versions.designSupportLib}"
@@ -63,6 +66,13 @@ object Dependencies {
     const val support_annotation = "androidx.annotation:annotation:${Versions.supportAnnotation}"
     const val app_intro = "com.github.AppIntro:AppIntro:${Versions.appIntro}"
     const val circule_image_view = "de.hdodenhof:circleimageview:${Versions.circleImageView}"
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
+    const val hiltKapt = "com.google.dagger:hilt-compiler:${Versions.hiltVersion}"
+    const val hiltInstrumentationTesting = "com.google.dagger:hilt-android-testing:${Versions.hiltVersion}"
+    const val hiltInstrumentationTestingKapt = "com.google.dagger:hilt-compiler:${Versions.hiltVersion}"
+    const val hiltUnitTesting = "com.google.dagger:hilt-android-testing:${Versions.hiltVersion}"
+    const val hiltUnitTestingkapt = "com.google.dagger:hilt-compiler:${Versions.hiltVersion}"
+    const val fragmentktx = "androidx.fragment:fragment-ktx:${Versions.fragmentktxVersion}"
     const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.viewPager2}"
     const val swipe_refresh_layout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
 }

@@ -1,5 +1,6 @@
 package org.systers.mentorship.view.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_member_item.view.*
-import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.User
 import org.systers.mentorship.utils.Constants
@@ -28,12 +28,12 @@ import org.systers.mentorship.view.fragments.MembersFragment
  * @param openDetailFunction function to be called when an item from Members list is clicked
  */
 class MembersAdapter (
+        val context: Context,
         private var userList: ArrayList<User> = arrayListOf<User>(),
         private val openDetailFunction: (memberId: Int, sharedImageView: ImageView, sharedTextView: TextView) -> Unit
 
 ) : RecyclerView.Adapter<MembersAdapter.MembersViewHolder>() {
 
-    val context = MentorshipApplication.getContext()
     var lastPosition = -1
     private var filterMap = hashMapOf(Constants.SORT_KEY to MembersFragment.SortValues.REGISTRATION_DATE.name)
     private var filteredUserList = mutableListOf<User>()

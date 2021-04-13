@@ -5,13 +5,13 @@ import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.remote.ApiManager
 import org.systers.mentorship.remote.requests.RelationshipRequest
 import org.systers.mentorship.remote.responses.CustomResponse
+import org.systers.mentorship.remote.services.RelationService
+import javax.inject.Inject
 
 /**
  * This class represents the data manager related to Mentorship Relation API
  */
-class RelationDataManager {
-
-    private val apiManager = ApiManager.instance
+class RelationDataManager @Inject constructor(val relationService: RelationService ) {
 
     /**
      * This will call a method of RelationService interface to fetch
@@ -19,7 +19,7 @@ class RelationDataManager {
      * @return an Observable of a list of [Relationship]
      */
     fun getAllRelationsAndRequests(): Observable<List<Relationship>> {
-        return apiManager.relationService.getAllRelationships()
+        return relationService.getAllRelationships()
     }
 
     /**
@@ -28,7 +28,7 @@ class RelationDataManager {
      * @return an Observable of a list of [Relationship]s
      */
     fun getAllPendingRelationsAndRequests(): Observable<List<Relationship>> {
-        return apiManager.relationService.getAllPendingRelationships()
+        return relationService.getAllPendingRelationships()
     }
 
     /**
@@ -37,7 +37,7 @@ class RelationDataManager {
      * @return an Observable of a list of [Relationship]
      */
     fun getPastRelationships(): Observable<List<Relationship>> {
-        return apiManager.relationService.getPastRelationships()
+        return relationService.getPastRelationships()
     }
 
     /**
@@ -46,7 +46,7 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun acceptRelationship(relationId: Int): Observable<CustomResponse> {
-        return apiManager.relationService.acceptRelationship(relationId)
+        return relationService.acceptRelationship(relationId)
     }
 
     /**
@@ -55,7 +55,7 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun rejectRelationship(relationId: Int): Observable<CustomResponse> {
-        return apiManager.relationService.rejectRelationship(relationId)
+        return relationService.rejectRelationship(relationId)
     }
 
     /**
@@ -64,7 +64,7 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun deleteRelationship(relationId: Int): Observable<CustomResponse> {
-        return apiManager.relationService.deleteRelationship(relationId)
+        return relationService.deleteRelationship(relationId)
     }
 
     /**
@@ -73,7 +73,7 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun cancelRelationship(relationId: Int): Observable<CustomResponse> {
-        return apiManager.relationService.cancelRelationship(relationId)
+        return relationService.cancelRelationship(relationId)
     }
 
     /**
@@ -82,7 +82,7 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun sendRequest(relationshipRequest: RelationshipRequest): Observable<CustomResponse> {
-        return apiManager.relationService.sendRequest(relationshipRequest)
+        return relationService.sendRequest(relationshipRequest)
     }
 
     /**
@@ -90,6 +90,6 @@ class RelationDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun getCurrentRelationship(): Observable<Relationship> {
-        return apiManager.relationService.getCurrentRelationship()
+        return relationService.getCurrentRelationship()
     }
 }

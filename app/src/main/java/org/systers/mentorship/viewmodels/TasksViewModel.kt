@@ -1,15 +1,18 @@
 package org.systers.mentorship.viewmodels
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Task
+import org.systers.mentorship.remote.datamanager.RelationDataManager
 import org.systers.mentorship.remote.datamanager.TaskDataManager
 import org.systers.mentorship.remote.requests.CreateTask
 import org.systers.mentorship.remote.responses.CustomResponse
@@ -17,17 +20,16 @@ import org.systers.mentorship.utils.CommonUtils
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.TimeoutException
+import javax.inject.Inject
 
 /**
  * This class represents the [ViewModel] used for Tasks Screen
  */
-class TasksViewModel: ViewModel() {
+class TasksViewModel@Inject constructor(@ApplicationContext val context: Context, val taskDataManager: TaskDataManager): ViewModel() {
 
-    var tag = TasksViewModel::class.java.simpleName!!
+    var tag = TasksViewModel::class.java.simpleName
 
     lateinit var tasksList: List<Task>
-
-    private val taskDataManager: TaskDataManager = TaskDataManager()
     val successfulGet: MutableLiveData<Boolean> = MutableLiveData()
     val successfulAdd: MutableLiveData<Boolean> = MutableLiveData()
     val successfulUpdate: MutableLiveData<Boolean> = MutableLiveData()
@@ -55,24 +57,7 @@ class TasksViewModel: ViewModel() {
                     }
 
                     override fun onError(throwable: Throwable) {
-                        when (throwable) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message.toString()
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                                Log.e(tag, throwable.localizedMessage)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context , throwable , tag)
                         successfulGet.value = false
                     }
 
@@ -96,24 +81,7 @@ class TasksViewModel: ViewModel() {
                         successfulAdd.value = true
                     }
                     override fun onError(throwable: Throwable) {
-                        when (throwable) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message.toString()
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                                Log.e(tag, throwable.localizedMessage)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context , throwable , tag)
                         successfulAdd.value = false
                     }
                     override fun onComplete() {
@@ -138,24 +106,7 @@ class TasksViewModel: ViewModel() {
                             successfulUpdate.value = true
                         }
                         override fun onError(throwable: Throwable) {
-                            when (throwable) {
-                                is IOException -> {
-                                    message = MentorshipApplication.getContext()
-                                            .getString(R.string.error_please_check_internet)
-                                }
-                                is TimeoutException -> {
-                                    message = MentorshipApplication.getContext()
-                                            .getString(R.string.error_request_timed_out)
-                                }
-                                is HttpException -> {
-                                    message = CommonUtils.getErrorResponse(throwable).message.toString()
-                                }
-                                else -> {
-                                    message = MentorshipApplication.getContext()
-                                            .getString(R.string.error_something_went_wrong)
-                                    Log.e(tag, throwable.localizedMessage)
-                                }
-                            }
+                            message = CommonUtils.getErrorMessage(context , throwable , tag)
                             successfulUpdate.value = false
                         }
                         override fun onComplete() {

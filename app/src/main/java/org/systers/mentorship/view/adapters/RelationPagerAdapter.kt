@@ -1,10 +1,10 @@
 package org.systers.mentorship.view.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.view.fragments.RelationFragment
@@ -17,7 +17,7 @@ import org.systers.mentorship.view.fragments.TasksFragment
  * a detailed information about the tasks.
  * @param fm fragment manager
  */
-class RelationPagerAdapter(fm: FragmentManager, private var mentorshipRelation: Relationship) : FragmentPagerAdapter(fm) {
+class RelationPagerAdapter(val context: Context,fm: FragmentManager, private var mentorshipRelation: Relationship) : FragmentPagerAdapter(fm) {
 
     /**
      * This class represents the number and index of each tab of the layout
@@ -27,7 +27,6 @@ class RelationPagerAdapter(fm: FragmentManager, private var mentorshipRelation: 
         TASKS(1)
     }
 
-    val context = MentorshipApplication.getContext()
 
     override fun getItem(position: Int): Fragment {
         when (position) {

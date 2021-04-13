@@ -6,13 +6,16 @@ import org.systers.mentorship.remote.requests.Login
 import org.systers.mentorship.remote.requests.Register
 import org.systers.mentorship.remote.responses.AuthToken
 import org.systers.mentorship.remote.responses.CustomResponse
+import org.systers.mentorship.remote.services.AuthService
+import javax.inject.Inject
 
 /**
  * This class represents the data manager related to Authentication API
  */
-class AuthDataManager {
+class AuthDataManager @Inject constructor(val authService: AuthService) {
 
-    private val apiManager = ApiManager.instance
+
+
 
     /**
      * This will call the login method of AuthService interface
@@ -20,7 +23,7 @@ class AuthDataManager {
      * @return an Observable AuthToken
      */
     fun login(login: Login): Observable<AuthToken> {
-        return apiManager.authService.login(login)
+        return authService.login(login)
     }
 
     /**
@@ -30,6 +33,6 @@ class AuthDataManager {
      * @return an Observable CustomResponse
      */
     fun register(register: Register): Observable<CustomResponse> {
-        return apiManager.authService.register(register)
+        return authService.register(register)
     }
 }

@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     compileSdkVersion Versions.compileSdkVersion
     defaultConfig {
@@ -30,18 +32,24 @@ android {
             initWith debug
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
     }
 
     androidExtensions {
         experimental = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 configurations.all {
     resolutionStrategy {
-        forcedModules = [Dependencies.support_annotation]
     }
 }
 
@@ -51,7 +59,6 @@ dependencies {
     implementation Dependencies.design
     implementation Dependencies.constraint_layout
     implementation Dependencies.appCompat
-    kapt Dependencies.databinding
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.test_runner
     androidTestImplementation Dependencies.test_rules
@@ -73,7 +80,19 @@ dependencies {
     implementation Dependencies.lifecycle_viewmodel
     implementation Dependencies.app_intro
     implementation Dependencies.circule_image_view
+    
+    implementation Dependencies.hilt
+    kapt Dependencies.hiltKapt
+    androidTestImplementation  Dependencies.hiltInstrumentationTesting
+    kaptAndroidTest Dependencies.hiltInstrumentationTestingKapt
+    testImplementation Dependencies.hiltUnitTesting
+    kaptTest Dependencies.hiltUnitTestingkapt
 
+    implementation Dependencies.fragmentktx
     implementation Dependencies.viewPager2
     implementation Dependencies.swipe_refresh_layout
+}
+
+kapt {
+    correctErrorTypes true
 }

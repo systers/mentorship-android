@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import org.systers.mentorship.view.activities.BaseActivity
 
 /**
  * A Fragment class which other Fragments can extend from. It reduces boilerplate of
  * other fragments setting up their own views and  action bat title
  */
+@AndroidEntryPoint
 abstract class BaseFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

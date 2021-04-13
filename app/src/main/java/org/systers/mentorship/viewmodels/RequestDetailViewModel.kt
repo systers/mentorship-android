@@ -1,9 +1,12 @@
 package org.systers.mentorship.viewmodels
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Log
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
@@ -15,15 +18,15 @@ import org.systers.mentorship.utils.CommonUtils
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.concurrent.TimeoutException
+import javax.inject.Inject
 
 /**
  * This class represents the [ViewModel] used for Request Detail Screen
  */
-class RequestDetailViewModel : ViewModel() {
+@HiltViewModel
+class RequestDetailViewModel @Inject constructor(@ApplicationContext val context: Context, val relationDataManager: RelationDataManager): ViewModel() {
 
-    var tag = RequestDetailViewModel::class.java.simpleName!!
-
-    private val relationDataManager = RelationDataManager()
+    var tag = RequestDetailViewModel::class.java.simpleName
 
     val successful: MutableLiveData<Boolean> = MutableLiveData()
     lateinit var message: String
@@ -44,24 +47,7 @@ class RequestDetailViewModel : ViewModel() {
                     }
 
                     override fun onError(throwable: Throwable) {
-                        when (throwable) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                                Log.e(tag, throwable.localizedMessage)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context , throwable , tag)
                         successful.value = false
                     }
 
@@ -86,24 +72,7 @@ class RequestDetailViewModel : ViewModel() {
                     }
 
                     override fun onError(throwable: Throwable) {
-                        when (throwable) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                                Log.e(tag, throwable.localizedMessage)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context , throwable , tag)
                         successful.value = false
                     }
 
@@ -128,24 +97,7 @@ class RequestDetailViewModel : ViewModel() {
                     }
 
                     override fun onError(throwable: Throwable) {
-                        when (throwable) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                                Log.e(tag, throwable.localizedMessage)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context , throwable , tag)
                         successful.value = false
                     }
 

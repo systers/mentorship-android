@@ -1,10 +1,16 @@
 package org.systers.mentorship.view.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
@@ -14,21 +20,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.app.Activity.RESULT_OK
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.SearchView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.android.synthetic.main.fragment_members.*
 import org.systers.mentorship.R
 import org.systers.mentorship.models.User
-import org.systers.mentorship.remote.requests.PaginationRequest
 import org.systers.mentorship.utils.Constants
 import org.systers.mentorship.utils.Constants.FILTER_MAP
 import org.systers.mentorship.utils.Constants.FILTER_REQUEST_CODE
-import org.systers.mentorship.utils.Constants.ITEMS_PER_PAGE
 import org.systers.mentorship.utils.Constants.SORT_KEY
 import org.systers.mentorship.utils.EndlessRecyclerScrollListener
 import org.systers.mentorship.view.activities.FilterActivity
@@ -36,13 +35,16 @@ import org.systers.mentorship.view.activities.MainActivity
 import org.systers.mentorship.view.activities.MemberProfileActivity
 import org.systers.mentorship.view.adapters.MembersAdapter
 import org.systers.mentorship.viewmodels.MembersViewModel
+import javax.inject.Inject
 
 
 /**
  * The fragment is responsible for showing all the members of the system in a list format
  */
 class MembersFragment : BaseFragment() {
-
+    @ApplicationContext
+    @Inject
+    lateinit var appContext: Context
     companion object {
         /**
          * Creates an instance of [MembersFragment]
@@ -92,14 +94,14 @@ class MembersFragment : BaseFragment() {
         rvMembers.apply {
             layoutManager = LinearLayoutManager(context)
             addLoadMoreListener(this)
-            adapter = MembersAdapter(userList, ::openUserProfile)
+            adapter = MembersAdapter(appContext,userList, ::openUserProfile)
         }
         tvEmptyList.visibility = View.GONE
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-        rvAdapter = MembersAdapter(arrayListOf<User>(), ::openUserProfile)
+        rvAdapter = MembersAdapter(appContext,arrayListOf<User>(), ::openUserProfile)
         srlMembers.setOnRefreshListener {
             if(!isLoading) {
                 fetchNewest(true)
@@ -123,7 +125,7 @@ class MembersFragment : BaseFragment() {
                         if (!isRecyclerView){
                             rvMembers.apply {
                                 layoutManager = LinearLayoutManager(context)
-                                adapter = MembersAdapter(membersViewModel.userList, ::openUserProfile)
+                                adapter = MembersAdapter(appContext,membersViewModel.userList, ::openUserProfile)
                                 addLoadMoreListener(this)
                                 runLayoutAnimation(this)
 

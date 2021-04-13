@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.systers.mentorship.R
 import org.systers.mentorship.utils.PreferenceManager
 import org.systers.mentorship.view.fragments.*
+import javax.inject.Inject
 
 /**
  * This activity has the bottom navigation which allows the user to switch between fragments
@@ -23,7 +24,8 @@ class MainActivity : BaseActivity() {
     private var mLastPress: Long = 0
     private lateinit var exitToast: Toast
 
-    private val preferenceManager: PreferenceManager = PreferenceManager()
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -22,6 +22,7 @@ import org.systers.mentorship.view.fragments.RequestPagerFragment
  * @param fm fragment manager
  */
 class RequestsPagerAdapter(
+        private val context: Context ,
         private val requestsList: List<Relationship>,
         private val pendingRequestsList: List<Relationship>,
         fragmentActivity: FragmentActivity
@@ -35,8 +36,6 @@ class RequestsPagerAdapter(
         PAST(1),
         ALL(2)
     }
-
-    val context = MentorshipApplication.getContext()
 
     private val pastList: List<Relationship> by lazy {
         requestsList.filter {

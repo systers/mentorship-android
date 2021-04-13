@@ -2,20 +2,22 @@ package org.systers.mentorship.view.fragments
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.EditText
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.android.synthetic.main.fragment_mentorship_tasks.*
-import org.systers.mentorship.MentorshipApplication
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.remote.requests.CreateTask
 import org.systers.mentorship.view.adapters.TasksAdapter
 import org.systers.mentorship.viewmodels.TasksViewModel
+import javax.inject.Inject
 
 @SuppressLint("ValidFragment")
 /**
@@ -32,7 +34,9 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         val TAG = TasksFragment::class.java.simpleName
     }
 
-    val appContext = MentorshipApplication.getContext()
+    @ApplicationContext
+    @Inject
+    lateinit var appContext : Context
     private val taskViewModel by lazy {
         ViewModelProviders.of(this).get(TasksViewModel::class.java)
     }
@@ -65,7 +69,7 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
             }
         }
         //get tasks
-        taskViewModel.successfulGet.observe(this, Observer {
+        taskViewModel.successfulGet.observe(viewLifecycleOwner, Observer {
 
             successful ->
             if (successful != null) {
@@ -76,7 +80,7 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
                     } else {
                         rvTasks.apply {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = TasksAdapter(context!!,taskViewModel.incompleteTasksList(), ::markTask, false)
+                            adapter = TasksAdapter(requireContext(),taskViewModel.incompleteTasksList(), ::markTask, false)
                         }
                         tvNoTask.visibility = View.GONE
 
@@ -84,7 +88,7 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
                         if (completeTasksList.isNotEmpty()){
                             rvAchievements.apply {
                                 layoutManager = LinearLayoutManager(context)
-                                adapter = TasksAdapter(context!!,completeTasksList, ::markTask, true)
+                                adapter = TasksAdapter(requireContext(),completeTasksList, ::markTask, true)
                             }
                             tvNoAchievements.visibility = View.GONE
                         }
@@ -98,12 +102,12 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         })
 
         //mark tasks as done
-        taskViewModel.successfulUpdate.observe(this, Observer {
+        taskViewModel.successfulUpdate.observe(viewLifecycleOwner, Observer {
             successful ->
             if (successful != null) {
                 if (successful) {
                     view?.let {
-                        Snackbar.make(it, context!!.getString(R.string.mark_task_success), Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(it, requireContext().getString(R.string.mark_task_success), Snackbar.LENGTH_LONG).show()
                     }
                     //get tasks again to refresh list
                     taskViewModel.getTasks(mentorshipRelation.id)
@@ -116,12 +120,12 @@ class TasksFragment(private var mentorshipRelation: Relationship) : BaseFragment
         })
 
         //add task
-        taskViewModel.successfulAdd.observe(this, Observer {
+        taskViewModel.successfulAdd.observe(viewLifecycleOwner, Observer {
             successful ->
             if (successful != null) {
                 if (successful) {
                     view?.let {
-                        Snackbar.make(it, context!!.getString(R.string.create_task_success), Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(it, requireContext().getString(R.string.create_task_success), Snackbar.LENGTH_LONG).show()
                     }
                     //get tasks again to refresh list
                     taskViewModel.getTasks(mentorshipRelation.id)

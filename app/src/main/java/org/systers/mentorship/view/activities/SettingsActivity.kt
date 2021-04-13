@@ -7,11 +7,13 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import org.systers.mentorship.R
 import org.systers.mentorship.utils.PreferenceManager
 import org.systers.mentorship.view.fragments.ChangePasswordFragment
+import javax.inject.Inject
 
 
 class SettingsActivity : BaseActivity() {
 
-    private val preferenceManager: PreferenceManager = PreferenceManager()
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

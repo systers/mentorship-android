@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
 import android.view.MenuItem
+import androidx.activity.viewModels
 import kotlinx.android.synthetic.main.activity_member_profile.*
 import org.systers.mentorship.R
 import org.systers.mentorship.models.User
@@ -20,9 +21,7 @@ import org.systers.mentorship.viewmodels.ProfileViewModel
  */
 class MemberProfileActivity : BaseActivity() {
 
-    private val memberProfileViewModel by lazy {
-        ViewModelProviders.of(this).get(MemberProfileViewModel::class.java)
-    }
+    private val memberProfileViewModel: MemberProfileViewModel by viewModels()
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var userProfile: User
     private lateinit var currentUser: User

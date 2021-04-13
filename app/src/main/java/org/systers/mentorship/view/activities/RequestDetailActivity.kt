@@ -17,6 +17,7 @@ import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.utils.*
 import org.systers.mentorship.viewmodels.RequestDetailViewModel
 import android.content.Intent
+import androidx.activity.viewModels
 import org.systers.mentorship.view.fragments.RequestPagerFragment
 
 /**
@@ -24,9 +25,7 @@ import org.systers.mentorship.view.fragments.RequestPagerFragment
  */
 class RequestDetailActivity: BaseActivity() {
 
-    private val requestDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(RequestDetailViewModel::class.java)
-    }
+    private val requestDetailViewModel : RequestDetailViewModel by viewModels()
     private val mentorshipRelationResponse by lazy {
         intent.getParcelableExtra<Relationship>(Constants.RELATIONSHIP_EXTRA)
     }

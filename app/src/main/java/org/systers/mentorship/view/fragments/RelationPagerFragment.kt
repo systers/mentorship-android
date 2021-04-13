@@ -1,20 +1,21 @@
 package org.systers.mentorship.view.fragments
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.android.synthetic.main.activity_main.*
-import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_relation.*
 import org.systers.mentorship.R
 import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.view.activities.MainActivity
 import org.systers.mentorship.view.adapters.RelationPagerAdapter
 import org.systers.mentorship.viewmodels.RelationViewModel
+import javax.inject.Inject
 
 /**
  * This fragment is instantiated per each tab from the RelationFragment ViewPager
@@ -28,6 +29,9 @@ class RelationPagerFragment : BaseFragment() {
         fun newInstance() = RelationPagerFragment()
     }
 
+    @ApplicationContext
+    @Inject
+    lateinit var appContext : Context
     private val relationViewModel by lazy {
         ViewModelProviders.of(this).get(RelationViewModel::class.java)
     }
@@ -43,7 +47,7 @@ class RelationPagerFragment : BaseFragment() {
         setHasOptionsMenu(true)
         srlRelation.setOnRefreshListener { fetchNewest() }
 
-        relationViewModel.successfulGet.observe(this, Observer {
+        relationViewModel.successfulGet.observe(viewLifecycleOwner, Observer {
             successfull ->
             srlRelation.isRefreshing = false
             if (successfull != null) {
@@ -91,7 +95,7 @@ class RelationPagerFragment : BaseFragment() {
             tvFindPeopleBtn.visibility = View.GONE
             tlMentorshipRelation.visibility = View.VISIBLE
             vpMentorshipRelation.visibility = View.VISIBLE
-            vpMentorshipRelation.adapter = RelationPagerAdapter(childFragmentManager, mentorshipRelation)
+            vpMentorshipRelation.adapter = RelationPagerAdapter(appContext,childFragmentManager, mentorshipRelation)
             tlMentorshipRelation.setupWithViewPager(vpMentorshipRelation)
         }
     }

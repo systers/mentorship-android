@@ -1,30 +1,31 @@
 package org.systers.mentorship.viewmodels
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import org.systers.mentorship.MentorshipApplication
-import org.systers.mentorship.R
 import org.systers.mentorship.remote.datamanager.UserDataManager
 import org.systers.mentorship.remote.requests.ChangePassword
 import org.systers.mentorship.remote.responses.CustomResponse
 import org.systers.mentorship.utils.CommonUtils
-import retrofit2.HttpException
-import java.io.IOException
-import java.util.concurrent.TimeoutException
+import javax.inject.Inject
 
 /**
  * This class represents the [ViewModel] used for ChangePasswordFragment
  */
-class ChangePasswordViewModel : ViewModel() {
-
-    private val userDataManager: UserDataManager = UserDataManager()
+@HiltViewModel
+@SuppressLint("StaticFieldLeak")
+class ChangePasswordViewModel  @Inject constructor(
+         @ApplicationContext val context : Context,
+        val userDataManager: UserDataManager )
+    : ViewModel() {
     val successfulUpdate: MutableLiveData<Boolean> = MutableLiveData()
     lateinit var message: String
-
     /**
      * Updates the password of the current user
      */
@@ -40,23 +41,7 @@ class ChangePasswordViewModel : ViewModel() {
                     }
 
                     override fun onError(e: Throwable) {
-                        when (e) {
-                            is IOException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_please_check_internet)
-                            }
-                            is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_request_timed_out)
-                            }
-                            is HttpException -> {
-                                message = CommonUtils.getErrorResponse(e).message
-                            }
-                            else -> {
-                                message = MentorshipApplication.getContext()
-                                        .getString(R.string.error_something_went_wrong)
-                            }
-                        }
+                        message = CommonUtils.getErrorMessage(context,e,this.javaClass.simpleName)
                         successfulUpdate.value = false
                     }
 

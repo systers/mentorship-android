@@ -7,20 +7,20 @@ import org.systers.mentorship.remote.ApiManager
 import org.systers.mentorship.remote.requests.ChangePassword
 import org.systers.mentorship.remote.requests.PaginationRequest
 import org.systers.mentorship.remote.responses.CustomResponse
+import org.systers.mentorship.remote.services.UserService
+import javax.inject.Inject
 
 /**
  * This class represents the data manager related to Users API
  */
-class UserDataManager {
-
-    private val apiManager = ApiManager.instance
+class UserDataManager @Inject constructor(val userService: UserService) {
 
     /**
      * This will call the getVerifiedUsers method of UserService interface
      * @return an Observable of a list of [User]
      */
     fun getUsers(): Observable<List<User>> {
-        return apiManager.userService.getVerifiedUsers()
+        return userService.getVerifiedUsers()
     }
 
 
@@ -29,7 +29,7 @@ class UserDataManager {
      * @return an Observable of a list of [User]
      */
     fun getUsers(paginationRequest: PaginationRequest): Observable<List<User>> {
-        return apiManager.userService.getVerifiedUsers(paginationRequest.pagination)
+        return userService.getVerifiedUsers(paginationRequest.pagination)
     }
 
 
@@ -38,7 +38,7 @@ class UserDataManager {
      * @return an Observable of [User]
      */
     fun getUser(userId: Int): Observable<User> {
-        return apiManager.userService.getUser(userId)
+        return userService.getUser(userId)
     }
 
     /**
@@ -46,7 +46,7 @@ class UserDataManager {
      * @return an Observable of [User]
      */
     fun getUser(): Observable<User> {
-        return apiManager.userService.getUser()
+        return userService.getUser()
     }
 
     /**
@@ -54,7 +54,7 @@ class UserDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun updateUser(user: User): Observable<CustomResponse> {
-        return apiManager.userService.updateUser(user)
+        return userService.updateUser(user)
     }
 
     /**
@@ -62,7 +62,7 @@ class UserDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun updatePassword(changePassword: ChangePassword): Observable<CustomResponse> {
-        return apiManager.userService.updatePassword(changePassword)
+        return userService.updatePassword(changePassword)
     }
 
     /**
@@ -70,7 +70,7 @@ class UserDataManager {
      * @return an observable of [HomeStatistics]
      */
     fun getHomeStats(): Observable<HomeStatistics> {
-        return apiManager.userService.getHomeStats()
+        return userService.getHomeStats()
     }
 
 }

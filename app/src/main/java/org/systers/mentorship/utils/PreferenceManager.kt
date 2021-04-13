@@ -3,19 +3,20 @@ package org.systers.mentorship.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.systers.mentorship.MentorshipApplication
+import javax.inject.Inject
 
 /**
  * This class contains SharedPreferences utilities, such as methods to save and clear application sensitive data.
  */
-class PreferenceManager {
+class PreferenceManager @Inject constructor(@ApplicationContext val context: Context) {
 
     companion object {
         const val APPLICATION_PREFERENCE = "app-preferences"
         const val AUTH_TOKEN = "auth-token"
     }
 
-    private val context: Context = MentorshipApplication.getContext()
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(
             APPLICATION_PREFERENCE, Context.MODE_PRIVATE)
 

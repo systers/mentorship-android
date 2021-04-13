@@ -5,13 +5,13 @@ import org.systers.mentorship.models.Task
 import org.systers.mentorship.remote.ApiManager
 import org.systers.mentorship.remote.requests.CreateTask
 import org.systers.mentorship.remote.responses.CustomResponse
+import org.systers.mentorship.remote.services.TaskService
+import javax.inject.Inject
 
 /**
  * This class represents the data manager related to Mentorship Task API
  */
-class TaskDataManager {
-
-    private val apiManager = ApiManager.instance
+class TaskDataManager @Inject constructor(val taskService: TaskService){
 
     /**
      * This will call a method from Taskservice interface to fetch all tasks
@@ -19,7 +19,7 @@ class TaskDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun getAllTasks(relationId: Int): Observable<List<Task>> {
-        return apiManager.taskService.getAllTasksFromMentorshipRelation(relationId)
+        return taskService.getAllTasksFromMentorshipRelation(relationId)
     }
 
     /**
@@ -28,7 +28,7 @@ class TaskDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun completeTask(relationId: Int, taskId: Int): Observable<CustomResponse> {
-        return apiManager.taskService.completeTaskFromMentorshipRelation(relationId,taskId)
+        return taskService.completeTaskFromMentorshipRelation(relationId,taskId)
     }
 
     /**
@@ -38,7 +38,7 @@ class TaskDataManager {
      * @return an Observable of [CustomResponse]
      */
     fun addTask(relationId: Int, createTask: CreateTask): Observable<CustomResponse> {
-        return apiManager.taskService.addTaskToMentorshipRelation(relationId,createTask)
+        return taskService.addTaskToMentorshipRelation(relationId,createTask)
     }
 
 }

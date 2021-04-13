@@ -48,7 +48,7 @@ class RelationFragment(private var mentorshipRelation: Relationship) : BaseFragm
         activityCast.showProgressDialog(getString(R.string.fetching_users))
         populateView(mentorshipRelation)
 
-        relationViewModel.successfulCancel.observe(this, Observer { successful ->
+        relationViewModel.successfulCancel.observe(viewLifecycleOwner, Observer { successful ->
             activityCast.hideProgressDialog()
             if (successful != null) {
                 if (successful) {

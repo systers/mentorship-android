@@ -1,28 +1,28 @@
 package org.systers.mentorship.view.activities
 
 import android.app.DatePickerDialog
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.view.MenuItem
-import android.widget.DatePicker
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_send_request.*
 import org.systers.mentorship.R
 import org.systers.mentorship.models.RelationState
 import org.systers.mentorship.models.Relationship
 import org.systers.mentorship.remote.requests.RelationshipRequest
+import org.systers.mentorship.remote.responses.JwtPayload
 import org.systers.mentorship.utils.SEND_REQUEST_END_DATE_FORMAT
 import org.systers.mentorship.utils.convertDateIntoUnixTimestamp
-import org.systers.mentorship.utils.getAuthTokenPayload
 import org.systers.mentorship.utils.getUnixTimestampInMilliseconds
 import org.systers.mentorship.viewmodels.RequestsViewModel
 import org.systers.mentorship.viewmodels.SendRequestViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
 /**
  * This activity will show a Mentorship request detail from the Requests List
@@ -30,6 +30,8 @@ import java.util.*
 class SendRequestActivity: BaseActivity() {
 
     private lateinit var myCalendar : Calendar
+    @Inject
+    lateinit var payload: JwtPayload
     companion object {
         const val OTHER_USER_ID_INTENT_EXTRA = "OTHER_USER_ID_INTENT_EXTRA"
         const val OTHER_USER_NAME_INTENT_EXTRA = "OTHER_USER_NAME_INTENT_EXTRA"
@@ -37,10 +39,8 @@ class SendRequestActivity: BaseActivity() {
 
 
     private lateinit var pendingSentRelationships: List<Relationship>
-    private lateinit var requestsViewModel: RequestsViewModel
-    private val sendRequestViewModel by lazy {
-        ViewModelProviders.of(this).get(SendRequestViewModel::class.java)
-    }
+    private val requestsViewModel: RequestsViewModel by viewModels()
+    private val sendRequestViewModel: SendRequestViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class SendRequestActivity: BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val otherUserName = intent.getStringExtra(OTHER_USER_NAME_INTENT_EXTRA)
         val otherUserId = intent.getIntExtra(OTHER_USER_ID_INTENT_EXTRA, 0)
-        val currentUserId = getAuthTokenPayload().identity
+        val currentUserId = payload.identity
         setObservables()
         populateView(otherUserName, otherUserId, currentUserId)
 
@@ -143,7 +143,6 @@ class SendRequestActivity: BaseActivity() {
                 }
             }
         })
-        requestsViewModel = ViewModelProviders.of(this).get(RequestsViewModel::class.java)
         requestsViewModel.successful.observe(this, Observer {
             successful ->
             if (successful != null) {

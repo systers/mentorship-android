@@ -4,10 +4,11 @@ package org.systers.mentorship.view.activities
 
 import android.app.ProgressDialog
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import org.systers.mentorship.utils.ProgressBar
 
@@ -15,6 +16,7 @@ import org.systers.mentorship.utils.ProgressBar
  * An Activity class which other Activities can extend from. It provides some basic functions like
  * showing/hiding progress dialog bars, hiding keyboard etc.
  */
+@AndroidEntryPoint
 abstract class BaseActivity: AppCompatActivity() {
 
     private var progressDialog: ProgressDialog? = null
