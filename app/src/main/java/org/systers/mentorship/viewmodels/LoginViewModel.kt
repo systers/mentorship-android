@@ -42,8 +42,7 @@ class LoginViewModel : ViewModel() {
     private val _successful = MutableLiveData(false)
     val successful: LiveData<Boolean> = _successful
 
-    private val _message = MutableLiveData<String>()
-    val message: LiveData<String> = _message
+    val message = MutableLiveData<String>()
 
     /**
      * Will be used to run the login method of the AuthService
@@ -64,18 +63,18 @@ class LoginViewModel : ViewModel() {
                     override fun onError(throwable: Throwable) {
                         when (throwable) {
                             is IOException -> {
-                                _message.value = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_please_check_internet)
                             }
                             is TimeoutException -> {
-                                _message.value = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_request_timed_out)
                             }
                             is HttpException -> {
-                                _message.value = CommonUtils.getErrorResponse(throwable).message
+                                message.value = CommonUtils.getErrorResponse(throwable).message
                             }
                             else -> {
-                                _message.value = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_something_went_wrong)
                                 Log.e(tag, throwable.localizedMessage)
                             }
@@ -101,7 +100,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun onButtonClick() {
-        _message.value = ""
+        message.value = ""
         login(Login(username.value!!, password.value!!))
     }
 }

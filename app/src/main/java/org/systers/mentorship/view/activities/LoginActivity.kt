@@ -13,8 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -79,8 +77,7 @@ class LoginActivity : BaseActivity() {
         try {
             val tokenExpiredVal = intent.extras!!.getInt(Constants.TOKEN_EXPIRED_EXTRA)
             if (tokenExpiredVal == 0)
-                Toast.makeText(this, "Session Token expired, please login again", Toast.LENGTH_LONG)
-                    .show()
+                loginViewModel.message.value = "Session Token expired, please login again"
         } catch (exception: Exception) {
         }
     }
@@ -138,9 +135,7 @@ fun LoginContent(
 
     Box {
         Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState()),
+            Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceAround,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
