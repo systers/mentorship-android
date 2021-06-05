@@ -2,6 +2,7 @@ package org.systers.mentorship.viewmodels
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,8 +30,19 @@ class LoginViewModel : ViewModel() {
     private val preferenceManager: PreferenceManager = PreferenceManager()
     private val authDataManager: AuthDataManager = AuthDataManager()
 
-    val successful: MutableLiveData<Boolean> = MutableLiveData()
-    lateinit var message: String
+    private val _username = MutableLiveData("")
+    val username: LiveData<String> = _username
+
+    private val _password = MutableLiveData("")
+    val password: LiveData<String> = _password
+
+    private val _buttonEnabled = MutableLiveData(false)
+    val buttonEnabled: LiveData<Boolean> = _buttonEnabled
+
+    private val _successful = MutableLiveData(false)
+    val successful: LiveData<Boolean> = _successful
+
+    val message = MutableLiveData<String>()
 
     /**
      * Will be used to run the login method of the AuthService
@@ -38,39 +50,57 @@ class LoginViewModel : ViewModel() {
      */
     @SuppressLint("CheckResult")
     fun login(@NonNull login: Login) {
+        _buttonEnabled.value = false
         authDataManager.login(login)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<AuthToken>() {
                     override fun onNext(authToken: AuthToken) {
-                        successful.value = true
+                        _successful.value = true
                         preferenceManager.putAuthToken(authToken.accessToken)
                     }
 
                     override fun onError(throwable: Throwable) {
                         when (throwable) {
                             is IOException -> {
-                                message = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_please_check_internet)
                             }
                             is TimeoutException -> {
-                                message = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_request_timed_out)
                             }
                             is HttpException -> {
-                                message = CommonUtils.getErrorResponse(throwable).message
+                                message.value = CommonUtils.getErrorResponse(throwable).message
                             }
                             else -> {
-                                message = MentorshipApplication.getContext()
+                                message.value = MentorshipApplication.getContext()
                                         .getString(R.string.error_something_went_wrong)
                                 Log.e(tag, throwable.localizedMessage)
                             }
                         }
-                        successful.value = false
+                        _successful.value = false
+                        _buttonEnabled.value = true
                     }
 
                     override fun onComplete() {
+                        _buttonEnabled.value = false
                     }
                 })
+    }
+
+    fun onUsernameChange(newUsername: String) {
+        _username.value = newUsername
+        _buttonEnabled.value = !username.value.isNullOrEmpty() && !password.value.isNullOrEmpty()
+    }
+
+    fun onPasswordChange(newPassword: String) {
+        _password.value = newPassword
+        _buttonEnabled.value = !username.value.isNullOrEmpty() && !password.value.isNullOrEmpty()
+    }
+
+    fun onButtonClick() {
+        message.value = ""
+        login(Login(username.value!!, password.value!!))
     }
 }

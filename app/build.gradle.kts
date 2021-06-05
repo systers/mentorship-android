@@ -2,43 +2,53 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
-
     id("kotlin-android-extensions")
 }
 android {
-    compileSdkVersion(Versions.compileSdkVersion)
+
+    compileSdk = Versions.compileSdkVersion
     defaultConfig {
         applicationId = "org.anitab.mentorship"
-        minSdkVersion(Versions.minSdkVersion)
-        targetSdkVersion(Versions.targetSdkVersion)
+        minSdk = Versions.minSdkVersion
+        targetSdk = Versions.targetSdkVersion
         versionCode = Versions.versionCode
         versionName = Versions.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    buildFeatures {
+        dataBinding = true
+        // Enables Jetpack Compose for this module
+        compose = true
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-            setManifestPlaceholders(mutableMapOf("usesCleartextTraffic" to false))
+            manifestPlaceholders["usesCleartextTraffic"] = false
         }
         getByName("debug") {
-            setManifestPlaceholders(mutableMapOf("usesCleartextTraffic" to true))
+            manifestPlaceholders["usesCleartextTraffic"] = true
         }
-        create("debug_localhost") {
-            initWith(getByName("debug"))
-        }
+//        create("debug_localhost") {
+//            initWith(getByName("debug"))
+//        }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
+        useIR = true
     }
-    buildFeatures {
-        dataBinding = true
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.0-beta07"
     }
     androidExtensions {
         isExperimental = true
@@ -57,7 +67,6 @@ dependencies {
     implementation(Dependencies.design)
     implementation(Dependencies.constraint_layout)
     implementation(Dependencies.appCompat)
-    kapt(Dependencies.databinding)
     testImplementation(Dependencies.junit)
     androidTestImplementation(Dependencies.test_runner)
     androidTestImplementation(Dependencies.test_rules)
@@ -75,7 +84,6 @@ dependencies {
     implementation(Dependencies.retrofit_rxjava2_adapter)
     implementation(Dependencies.okhttp3_logging_interceptor)
 
-    implementation(Dependencies.lifecycle_extensions)
     implementation(Dependencies.lifecycle_viewmodel)
     implementation(Dependencies.app_intro)
     implementation(Dependencies.circule_image_view)
@@ -84,4 +92,21 @@ dependencies {
 
     implementation(Dependencies.viewPager2)
     implementation(Dependencies.swipe_refresh_layout)
+
+    // Compose Dependencies
+    implementation(Dependencies.Compose.UI)
+    // Tooling support (Previews, etc.)
+    implementation(Dependencies.Compose.Tooling)
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation(Dependencies.Compose.Foundation)
+    // Material Design
+    implementation(Dependencies.Compose.Material)
+    // Material design icons
+    implementation(Dependencies.Compose.Icons)
+    implementation(Dependencies.Compose.IconsExtended)
+    // Integration with observables
+    implementation(Dependencies.Compose.LiveData)
+    implementation(Dependencies.Compose.Activity)
+    // UI Tests
+    androidTestImplementation(Dependencies.Compose.Test)
 }

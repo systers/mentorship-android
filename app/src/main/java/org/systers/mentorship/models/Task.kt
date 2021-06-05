@@ -1,6 +1,7 @@
 package org.systers.mentorship.models
 
 import android.os.Parcelable
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -21,5 +22,6 @@ data class Task(
     val createdAt: Float,
     val completedAt: Float?
 ) : Parcelable {
+    @IgnoredOnParcel
     val isDone: Boolean = completedAt != null
 }

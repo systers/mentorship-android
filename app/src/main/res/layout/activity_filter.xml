@@ -38,11 +38,9 @@
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:elevation="@dimen/margin_small"
-                android:onClick="buttonOnClickSort"
                 app:cardCornerRadius="@dimen/margin_normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSortByTitle"
-                tools:targetApi="lollipop">
+                app:layout_constraintTop_toBottomOf="@+id/tvSortByTitle">
 
                 <TextView
                     android:id="@+id/tvSortNameAZ"
@@ -61,11 +59,9 @@
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:elevation="@dimen/margin_small"
-                android:onClick="buttonOnClickSort"
                 app:cardCornerRadius="@dimen/margin_normal"
                 app:layout_constraintStart_toEndOf="@+id/cardSortNameAZ"
-                app:layout_constraintTop_toBottomOf="@+id/tvSortByTitle"
-                tools:targetApi="lollipop">
+                app:layout_constraintTop_toBottomOf="@+id/tvSortByTitle">
 
                 <TextView
                     android:id="@+id/tvSortNameZA"
@@ -84,11 +80,9 @@
                 android:layout_marginStart="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:elevation="@dimen/margin_small"
-                android:onClick="buttonOnClickSort"
                 app:cardCornerRadius="@dimen/margin_normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardSortNameAZ"
-                tools:targetApi="lollipop">
+                app:layout_constraintTop_toBottomOf="@+id/cardSortNameAZ">
 
                 <TextView
                     android:id="@+id/tvSortRegistrationDate"
