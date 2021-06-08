@@ -182,7 +182,9 @@ class SignUpActivity : BaseActivity() {
         tiEmail.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!s.toString().matches(emailPattern.toRegex())) {
-                    tiEmail.editText?.error = getString(R.string.valid_error)
+                    tiEmail.error = getString(R.string.valid_error)
+                } else if (s.toString().matches(emailPattern.toRegex())) {
+                    tiEmail.error = null
                 }
 
                 if (s.toString().isEmpty()) {
@@ -230,7 +232,9 @@ class SignUpActivity : BaseActivity() {
         tiConfirmPassword.editText?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (!tiPassword.editText?.text.toString().contentEquals(s.toString())) {
-                    tiConfirmPassword.editText?.error = getString(R.string.password_not_match)
+                    tiConfirmPassword.error = getString(R.string.password_not_match)
+                } else if (tiPassword.editText?.text.toString().contentEquals(s.toString())) {
+                    tiConfirmPassword.error = null
                 }
 
                 if (s.toString().isEmpty()) {
@@ -285,6 +289,9 @@ class SignUpActivity : BaseActivity() {
 
         if (email.isBlank()) {
             tiEmail.error = getString(R.string.error_empty_email)
+            isValid = false
+        } else if (!email.matches(emailPattern.toRegex())) {
+            tiEmail.error = getString(R.string.valid_error)
             isValid = false
         } else {
             tiEmail.error = null
