@@ -243,6 +243,7 @@
     <string name="username">Username</string>
     <string name="username_or_email">Username or Email</string>
     <string name="valid_error">Please enter a valid email address</string>
+    <string name="task_valid_description">Task should contain a valid description</string>
     <string name="welcome">Welcome</string>
     <string name="yes">Yes</string>
 </resources>
