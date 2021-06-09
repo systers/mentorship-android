@@ -8,7 +8,7 @@
 
         <variable
             name="stats"
-            type="org.systers.mentorship.models.HomeStatistics" />
+            type="org.anitab.mentorship.models.HomeStatistics" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

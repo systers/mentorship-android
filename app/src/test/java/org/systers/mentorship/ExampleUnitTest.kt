@@ -1,4 +1,4 @@
-package org.systers.mentorship
+package org.anitab.mentorship
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

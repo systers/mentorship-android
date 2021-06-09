@@ -8,7 +8,7 @@
         <import type="android.view.View" />
         <variable
             name="user"
-            type="org.systers.mentorship.models.User" />
+            type="org.anitab.mentorship.models.User" />
     </data>
 
     <ScrollView

@@ -40,7 +40,7 @@
                 android:layout_margin="@dimen/generic_28sp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
-                android:text="@string/about_systers"
+                android:text="@string/about_anitab"
                 android:textAlignment="center"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -167,7 +167,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/systers_open_source_zulip"
+                        android:text="@string/anitab_open_source_zulip"
                         android:textColor="#fff"
                         android:textSize="14sp"
                         android:textStyle="bold" />

@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="org.systers.mentorship.view.activities.SignUpActivity"
+        tools:context="org.anitab.mentorship.view.activities.SignUpActivity"
         android:id="@+id/contentView"
         android:focusable="true"
         android:focusableInTouchMode="true"

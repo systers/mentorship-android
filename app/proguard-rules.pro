@@ -21,9 +21,9 @@
 #-renamesourcefileattribute SourceFile
 
 # For model classes
--keep class org.systers.mentorship.models.* {*;}
--keep class org.systers.mentorship.remote.requests.* {*;}
--keep class org.systers.mentorship.remote.responses.* {*;}
+-keep class org.anitab.mentorship.models.* {*;}
+-keep class org.anitab.mentorship.remote.requests.* {*;}
+-keep class org.anitab.mentorship.remote.responses.* {*;}
 
 # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement

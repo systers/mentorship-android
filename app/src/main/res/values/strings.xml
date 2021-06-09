@@ -3,7 +3,7 @@
     <string name="about">About</string>
     <string name="about_app">Mentorship System is an application that matches women in tech to mentor
         each other, on career development, through 1:1 relations during a certain period of time.</string>
-    <string name="about_systers">AnitaB.org is an international community for all women involved in the
+    <string name="about_anitab">AnitaB.org is an international community for all women involved in the
         technical aspects of computing. We welcome the participation of women technologists of all
         ages and at any stage of their studies or careers.
         We engage our community by contributing to
@@ -209,8 +209,8 @@
     <string name="skills">Skills</string>
     <string name="slack_username">Slack username</string>
     <string name="sort_by">Sort by</string>
-    <string name="systers_open_source_website">AnitaB.org Website</string>
-    <string name="systers_open_source_zulip">AnitaB.org Zulip</string>
+    <string name="anitab_open_source_website">AnitaB.org Website</string>
+    <string name="anitab_open_source_zulip">AnitaB.org Zulip</string>
     <string name="tasks">Tasks</string>
     <string name="terms_and_conditions">Terms and Conditions</string>
     <string name="terms_and_conditions_acceptance_statement">
@@ -234,10 +234,10 @@
     <string name="update_successful">Update profile was successful!</string>
     <string name="updating_profile">Updating profile…</string>
     <string name="url_code_of_conduct">https://ghc.anitab.org/code-of-conduct/</string>
-    <string name="url_github">https://github.com/systers/mentorship-android</string>
+    <string name="url_github">https://github.com/anitab/mentorship-android</string>
     <string name="url_privacy">https://anitab.org/privacy-policy/</string>
     <string name="url_terms">https://anitab.org/terms-of-use/</string>
-    <string name="url_website">http://systers.io</string>
+    <string name="url_website">http://anitab.io</string>
     <string name="url_zulip">https://anitab-org.zulipchat.com/</string>
     <string name="user_photo">User Photo</string>
     <string name="username">Username</string>
