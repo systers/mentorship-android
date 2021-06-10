@@ -79,7 +79,6 @@ class RelationPagerFragment : BaseFragment() {
             baseActivity.tlMentorshipRelation.removeAllTabs()
             tvFindPeopleBtn.setOnClickListener {
                 baseActivity.bottomNavigation.selectedItemId = R.id.navigation_members
-                baseActivity.replaceFragment(R.id.contentFrame, MembersFragment.newInstance(), R.string.navigation_title_members)
             }
         } else {
             tvNoCurrentRelation.visibility = View.GONE

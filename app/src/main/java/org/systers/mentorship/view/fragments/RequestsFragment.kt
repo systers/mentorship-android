@@ -18,12 +18,7 @@ import org.systers.mentorship.viewmodels.RequestsViewModel
 class RequestsFragment : BaseFragment() {
 
     companion object {
-        /**
-         * Creates an instance of [RequestsFragment]
-         */
-        fun newInstance() = RequestsFragment()
-
-        val TAG = RelationFragment::class.java.simpleName
+        val TAG = RequestsFragment::class.java.simpleName
     }
 
     private val requestsViewModel: RequestsViewModel by viewModels()

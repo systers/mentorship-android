@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="org.systers.mentorship.view.fragments.HomeFragment"
+        tools:layout="@layout/fragment_home"
+        android:label="@string/fragment_title_home" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="org.systers.mentorship.view.fragments.ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        android:label="@string/fragment_title_profile" />
+
+    <fragment
+        android:id="@+id/navigation_relation"
+        android:name="org.systers.mentorship.view.fragments.RelationPagerFragment"
+        tools:layout="@layout/fragment_relation_pager"
+        android:label="@string/fragment_title_relation" />
+
+    <fragment
+        android:id="@+id/navigation_members"
+        android:name="org.systers.mentorship.view.fragments.MembersFragment"
+        tools:layout="@layout/fragment_members"
+        android:label="@string/fragment_title_members" />
+
+    <fragment
+        android:id="@+id/navigation_requests"
+        android:name="org.systers.mentorship.view.fragments.RequestsFragment"
+        tools:layout="@layout/fragment_requests"
+        android:label="@string/fragment_title_requests" />
+
+    <activity
+        android:id="@+id/menu_settings"
+        android:name="org.systers.mentorship.view.activities.SettingsActivity"
+        android:label="@string/settings"
+        tools:layout="@layout/activity_settings" />
+
+</navigation>

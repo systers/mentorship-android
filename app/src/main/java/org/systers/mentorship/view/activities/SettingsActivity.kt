@@ -18,7 +18,6 @@ class SettingsActivity : BaseActivity() {
 
         supportActionBar?.title = getString(R.string.settings)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         tvLogout.setOnClickListener {
             val builder = AlertDialog.Builder(this)

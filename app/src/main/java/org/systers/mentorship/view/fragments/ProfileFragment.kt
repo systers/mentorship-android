@@ -21,10 +21,6 @@ import org.systers.mentorship.viewmodels.ProfileViewModel
 class ProfileFragment : BaseFragment() {
 
     companion object {
-        /**
-         * Creates an instance of ProfileFragment
-         */
-        fun newInstance() = ProfileFragment()
         val TAG: String = ProfileFragment::class.java.simpleName
     }
 
@@ -73,7 +69,7 @@ class ProfileFragment : BaseFragment() {
                     editProfileFragment.setOnDismissListener {
                         fetchNewest()
                     }
-                    fragmentManager?.let { editProfileFragment.show(it, getString(R.string.fragment_title_edit_profile)) }
+                    childFragmentManager.let { editProfileFragment.show(it, getString(R.string.fragment_title_edit_profile)) }
                 }
                 true
             }

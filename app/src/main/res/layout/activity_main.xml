@@ -56,7 +56,10 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <FrameLayout
+            <androidx.fragment.app.FragmentContainerView
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                app:navGraph="@navigation/main_navigation"
+                app:defaultNavHost="true"
                 android:id="@+id/contentFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

@@ -38,13 +38,6 @@ import org.systers.mentorship.viewmodels.MembersViewModel
  */
 class MembersFragment : BaseFragment() {
 
-    companion object {
-        /**
-         * Creates an instance of [MembersFragment]
-         */
-        fun newInstance() = MembersFragment()
-    }
-
     private var memberListInitialized = false
 
     private val membersViewModel: MembersViewModel by viewModels()

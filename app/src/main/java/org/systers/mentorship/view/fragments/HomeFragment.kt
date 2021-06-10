@@ -27,10 +27,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var achievementsAdapter: AchievementsAdapter
 
     companion object {
-        /**
-         * Creates an instance of HomeFragment
-         */
-        fun newInstance() = HomeFragment()
         val TAG: String = HomeFragment::class.java.simpleName
     }
 

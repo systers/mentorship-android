@@ -4,6 +4,7 @@ plugins {
     kotlin("kapt")
 
     id("kotlin-android-extensions")
+    id("androidx.navigation.safeargs.kotlin")
 }
 android {
     compileSdkVersion(Versions.compileSdkVersion)
@@ -76,6 +77,8 @@ dependencies {
 
     implementation(Dependencies.fragment_ktx)
 
+    implementation(Dependencies.navigation_fragment)
+    implementation(Dependencies.navigation_ui)
     implementation(Dependencies.viewPager2)
     implementation(Dependencies.swipe_refresh_layout)
 }
